@@ -232,7 +232,8 @@ function updateMap() {
         data: {
             'pokemon': document.getElementById('pokemon-switch').checked,
             'pokestops': document.getElementById('pokestops-switch').checked,
-            'gyms': document.getElementById('gyms-switch').checked
+            'gyms': document.getElementById('gyms-switch').checked,
+            'notify': document.getElementById('notify-switch').checked
         },
         dataType: "json"
     }).done(function(result) {
@@ -247,19 +248,21 @@ function updateMap() {
               if (item.marker) item.marker.setMap(null);
               item.marker = setupPokemonMarker(item);
               map_pokemons[item.encounter_id] = item;
-             $.ajax({
-			 	 type: "POST",
-			 	 url: "notify",
-				 data: {
-					  'pokename': item.pokemon_name,
-					  'time': item.disappear_time,
-					  'lat': item.latitude,
-					  'lon': item.longitude,
-					  'pokeID': item.pokemon_id
-				  }
-				}).done(function( o ) {
-			   		//do nothing
-			   });
+             if (document.getElementById('notify-switch').checked) {
+	             $.ajax({
+				 	 type: "POST",
+				 	 url: "notify",
+					 data: {
+						  'pokename': item.pokemon_name,
+						  'time': item.disappear_time,
+						  'lat': item.latitude,
+						  'lon': item.longitude,
+						  'pokeID': item.pokemon_id
+					  }
+					}).done(function( o ) {
+				   		//do nothing
+				   });
+			}
           }
 
       });

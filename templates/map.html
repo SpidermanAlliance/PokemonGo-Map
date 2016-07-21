@@ -53,7 +53,8 @@
 		<!-- Header -->
 		<header id="header">
 		<a href="#nav">Filter</a>
-			<h1><a href="#">Pokémon Go Map</a></h1>
+			<h1><a href="#">Joe's Pokémon Go Map</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+			<h1><a href="/update">&nbsp;&nbsp;</a></h1>
 
 		</header>
 
@@ -90,22 +91,31 @@
 					</label>
 				</div>
 			<br/>
-			<input type="button" onclick="window.location='/update';" value="Update Location" />
-			<!-- <input type="button" onclick="alert('Location updating not available');" value="Update Location" /> -->
+			<!-- <input type="button" onclick="window.location='/update';" value="Update Location" />
+			<input type="button" onclick="alert('Location updating not available');" value="Update Location" /> -->
 			<br/>
 			<br/>
-			<button id="trigger-overlay">Test overlay</button>
+			<div class="switch-container">
+				<h3>Notify<small><i>&nbsp;(Joe Only)</i></sup></h3>
+				<div class="onoffswitch">
+					<input id="notify-switch" type="checkbox" name="notify-switch" class="onoffswitch-checkbox"/>
+					<label class="onoffswitch-label" for="notify-switch">
+						<span class="switch-label" data-on="On" data-off="Off"></span>
+						<span class="switch-handle"></span>
+					</label>
+				</div>
 			</div>
-			<!-- <button id="trigger-overlay">Test overlay</button> -->
 			<label for="exclude-pokemon">
 				<h3>Hide common Pokémon</h3>
         <select id="exclude-pokemon" multiple="multiple"></select>
       </label>
+      <br/>
+      <br/>
+      <!-- <button id="trigger-overlay">Test overlay</button> -->
 		</nav>
 
 
 		<div id="map"></div>
-
 		<div class="overlay overlay-contentscale">
 			<button type="button" class="overlay-close">Close</button>
 			<nav>
