@@ -16,7 +16,8 @@ class Pogom(Flask):
         self.json_encoder = CustomJSONEncoder
         self.route("/", methods=['GET'])(self.fullmap)
         self.route("/raw_data", methods=['GET'])(self.raw_data)
-        self.route("/next_loc", methods=['POST'])(self.next_loc)
+        self.route("/next_loc", methods=['GET'])(self.next_loc)
+        self.route("/update", methods=['GET'])(self.updatelink)
 
     def fullmap(self):
         return render_template('map.html',
@@ -46,7 +47,10 @@ class Pogom(Flask):
         else:
             config['ORIGINAL_LATITUDE'] = lat
             config['ORIGINAL_LONGITUDE'] = lon
-            return 'ok'
+            return '<script>window.location="/"</script>'
+            
+    def updatelink(self):
+            return '<script> getLocation(); function getLocation() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(showPosition, showError); } else { window.alert("Geolocation is not supported by this browser."); } } function showPosition(position) { var latlon = position.coords.latitude + "," + position.coords.longitude; window.location="/next_loc?lat="+position.coords.latitude+"&lon="+position.coords.longitude } function showError(error) { switch(error.code) { case error.PERMISSION_DENIED: window.alert("Geolocation permissions have been denied."); break; case error.POSITION_UNAVAILABLE: window.alert("Location information is unavailable."); break; case error.TIMEOUT: window.alert("The request to get user location timed out."); break; case error.UNKNOWN_ERROR: window.alert("An unknown error occurred."); break; } } </script>'
 
 
 class CustomJSONEncoder(JSONEncoder):
