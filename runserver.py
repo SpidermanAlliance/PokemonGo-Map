@@ -60,4 +60,8 @@ if __name__ == '__main__':
         config['GMAPS_KEY'] = args.gmaps_key
     else:
         config['GMAPS_KEY'] = load_credentials(os.path.dirname(os.path.realpath(__file__)))['gmaps_key']
+        config['FROM_GMAIL_USER'] = load_credentials(os.path.dirname(os.path.realpath(__file__)))['from_gmail_user']
+        config['FROM_GMAIL_PW'] = load_credentials(os.path.dirname(os.path.realpath(__file__)))['from_gmail_pw']
+        config['NOTIFY_EMAIL'] = load_credentials(os.path.dirname(os.path.realpath(__file__)))['notify_email']
+
     app.run(threaded=True, debug=args.debug, host=args.host, port=args.port)

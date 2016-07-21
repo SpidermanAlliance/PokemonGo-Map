@@ -294,6 +294,19 @@ function updateMap() {
               if (item.marker) item.marker.setMap(null);
               item.marker = setupPokemonMarker(item);
               map_pokemons[item.encounter_id] = item;
+             $.ajax({
+			 	 type: "POST",
+			 	 url: "notify",
+				 data: {
+					  'pokename': item.pokemon_name,
+					  'time': item.disappear_time,
+					  'lat': item.latitude,
+					  'lon': item.longitude,
+					  'pokeID': item.pokemon_id
+				  }
+				}).done(function( o ) {
+			   		//do nothing
+			   });
           }
 
       });
