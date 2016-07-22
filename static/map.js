@@ -88,7 +88,6 @@ function initSidebar() {
     $('#gyms-switch').prop('checked', localStorage.showGyms === 'true');
     $('#pokemon-switch').prop('checked', localStorage.showPokemon === 'true');
     $('#pokestops-switch').prop('checked', localStorage.showPokestops === 'true');
-    $('#notify-switch').prop('checked', localStorage.showPokestops === 'false');
 }
 
 
@@ -239,7 +238,6 @@ function updateMap() {
     localStorage.showPokemon = localStorage.showPokemon || true;
     localStorage.showGyms = localStorage.showGyms || true;
     localStorage.showPokestops = localStorage.showPokestops || true;
-    localStorage.notify = localStorage.notify || false;
 
     $.ajax({
         url: "raw_data",
@@ -247,8 +245,7 @@ function updateMap() {
         data: {
            'pokemon': localStorage.showPokemon,
             'pokestops': localStorage.showPokestops,
-            'gyms': localStorage.showGyms,
-            'notify': localStorage.notify
+            'gyms': localStorage.showGyms
         },
         dataType: "json"
     }).done(function(result) {
@@ -262,7 +259,7 @@ function updateMap() {
               if (item.marker) item.marker.setMap(null);
               item.marker = setupPokemonMarker(item);
               map_pokemons[item.encounter_id] = item;
-             if (localStorage.notify) {
+             if (document.getElementById('notify-switch').checked) {
 	             $.ajax({
 				 	 type: "POST",
 				 	 url: "notify",
