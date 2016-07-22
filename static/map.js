@@ -187,6 +187,21 @@ function setupPokemonMarker(item) {
     
     if (notifiedPokemon.indexOf(item.pokemon_id) > -1) {
         sendNotification('A ' + item.pokemon_name + ' Appeared', 'Click to load map', 'static/icons/' + item.pokemon_id + '.png')
+        if (document.getElementById('notify-switch').checked) {
+	        $.ajax({
+			 	 type: "POST",
+			 	 url: "notify",
+				 data: {
+				  'pokename': item.pokemon_name,
+				  'time': item.disappear_time,
+				  'lat': item.latitude,
+				  'lon': item.longitude,
+				  'pokeID': item.pokemon_id
+				  }
+				}).done(function( o ) {
+			   		//do nothing
+			   });
+		}
     }
 
     addListeners(marker);
@@ -291,21 +306,6 @@ function updateMap() {
               if (item.marker) item.marker.setMap(null);
               item.marker = setupPokemonMarker(item);
               map_pokemons[item.encounter_id] = item;
-             if (document.getElementById('notify-switch').checked) {
-	             $.ajax({
-				 	 type: "POST",
-				 	 url: "notify",
-					 data: {
-						  'pokename': item.pokemon_name,
-						  'time': item.disappear_time,
-						  'lat': item.latitude,
-						  'lon': item.longitude,
-						  'pokeID': item.pokemon_id
-					  }
-					}).done(function( o ) {
-				   		//do nothing
-				   });
-			}
           }
         });
 

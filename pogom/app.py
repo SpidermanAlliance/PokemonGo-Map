@@ -24,8 +24,7 @@ class Pogom(Flask):
         return render_template('map.html',
                                lat=config['ORIGINAL_LATITUDE'],
                                lng=config['ORIGINAL_LONGITUDE'],
-                               gmaps_key=config['GMAPS_KEY'],
-                               lang=config['LOCALE'])
+                               gmaps_key=config['GMAPS_KEY'])
 
     def raw_data(self):
         d = {}
@@ -65,9 +64,6 @@ class Pogom(Flask):
         disappear_time = request.form.get('time', type=int)
         disappear_time = disappear_time/1000
 	pokeID = request.form.get('pokeID', type=int)
-		
-	if not(pokeID in [1,2,3,4,5,6,7,8,9,15,18,25,26,28,31,34,35,36,37,38,39,40,45,49,51,58,59,62,64,65,67,68,71,73,76,80,83,85,88,89,91,94,95,103,105,106,107,108,110,111,112,113,115,117,121,122,123,125,126,127,128,130,131,132,133,134,135,136,137,139,141,142,143,144,145,146,147,148,149,150,151]):
-            return 'No alerted needed'
 			
         import smtplib
         import time
@@ -89,8 +85,9 @@ class Pogom(Flask):
             server.sendmail(fromAddress, toAddress, email_text)
             server.close()
             print '\t\t\t[+] Email sent!'
-	except:  
-            print '\t\t\t[***] Email alert couldnt be sent'
+	except Exception,e: 
+            print '\t\t\t[**********************************************************************************] Email alert couldnt be sent'
+            print str(e)
 
         return 'ok'
             
