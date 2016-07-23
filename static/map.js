@@ -16,6 +16,7 @@ var browserLanguage = document.documentElement.lang == "" ? "en" : document.docu
 $.getJSON("static/locales/pokemon." + browserLanguage + ".json").done(function(data) {
 
     var pokeList = []
+    var idToPokemon = []
 
     $.each(data, function(key, value) {
         pokeList.push( { id: key, text: value } );
