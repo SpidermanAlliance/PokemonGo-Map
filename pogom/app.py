@@ -20,7 +20,7 @@ class Pogom(Flask):
         self.route("/update", methods=['GET'])(self.updatelink)
         self.route("/notify", methods=['POST'])(self.notifylink)
         self.route("/loc", methods=['GET'])(self.loc)
-        self.route("/next_loc", methods=['POST'])(self.next_loc)
+        self.route("/next_loc", methods=['GET'])(self.next_loc)
         self.route("/mobile", methods=['GET'])(self.list_pokemon)
 
     def fullmap(self):
